@@ -19,3 +19,7 @@ The GVM Scanner application GUI should open in the browser. Select Scans -> Task
 In the Advanced Task Wizard window, enter Metasploitable as the scan name. In the Target Host(s) field, enter the IP address of Metasploitable, 172.17.0.2. Leave the rest of the settings unchanged and click Create to create the task and start the scan.
 The Task window indicates the task is running. At the bottom of the window, the task Metasploitable is listed, and the status bar shows the percent complete. Wait until the status shows Done (100% complete).
 Click the number 1 under the Reports column in the Metasploitable row, next to the status indicator. The report list opens with an entry for the current day and time and the task named Metasploitable.
+Click the number 1 under the Reports column in the Metasploitable row, next to the status indicator.
+Open the report by clicking the date and time link under the Date column. Click the Results tab. The vulnerabilities found are listed in order of severity.
+Click the Results tab. The vulnerabilities found are listed in order of severity.
+Step 3: Interpret the scan results.
