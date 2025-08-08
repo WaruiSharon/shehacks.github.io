@@ -4,7 +4,7 @@ My cybersecurity journey
 LAB CHALLENGES
 WEB APPLICATION BASED ATTACKS using GVM Vulnerability Scanner
 GVM is part of the Open-Source Vulnerability Management suite of products produced by Greenbone Networks GmbH. The GVM scanner is one of the most widely used open-source vulnerability scanners. Unlike Nmap, GVM uses a graphical user interface to initiate scans and report vulnerability scan results.
-PAART 1: Scan a Host for Vulnerabilities
+PART 1: Scan a Host for Vulnerabilities
 Start GVM services
 Start the GVM scanner using the sudo gvm-start command. You can also access the gvm-start script using the Applications menu on the Kali desktop
 ┌──(kali㉿Kali)-[~]
@@ -24,3 +24,19 @@ Open the report by clicking the date and time link under the Date column. Click 
 Click the Results tab. The vulnerabilities found are listed in order of severity.
 Step 3: Interpret the scan results.
 Click the The rexec service is running vulnerability listed in the Results tab. GVM provides a summary of the finding and additional details. The Insight section explains a little about the vulnerability and the Solution section gives mitigation suggestions.
+Click the back arrow in the browser to return to the report screen. The rexec services typically run on TCP ports 512, 513, or 514. For this it's 512
+Part 2: Exploit a Vulnerability Found by GVM
+Step 1: Perform reconnaissance against the target.
+Administrators and other users often reuse passwords, use weak passwords, or fail to change the default credentials for a service. From a previous lab, we learned about vulnerabilities in SMB. We will use Nmap to see if we can learn anything from SMB about accounts that we might be able to use with rexec.
+Use the Nmap script smb-brute to find users and to attempt to brute force passwords.
+┌──(kali㉿Kali)-[~]
+└─$ sudo nmap -sV -p 445 -script smb-brute 172.17.0.2
+Locate the Host script results section in the command output. Username and password combinations that were uncovered with the Nmap scrip
+Step 2: Perform the rexec exploit.
+To access the Metasploitable target to exploit the rexec vulnerability, you will need a remote shell client. Use apt-get to install a remote shell (RSH) client on the Kali Linux VM.
+┌──(kali㉿Kali)-[~]
+└─$ sudo apt-get install rsh-client
+Attempt to log in to the Metasploitable target with the username msfadmin using RSH. The syntax for the rsh command is rsh -l [username] [target IP or hostname]
+┌──(kali㉿Kali)-[~]
+└─$ rsh -l msfadmin 172.17.0.2
+(ERROR MESSAGE!!!!)
