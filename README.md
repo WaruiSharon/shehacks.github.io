@@ -23,3 +23,4 @@ Click the number 1 under the Reports column in the Metasploitable row, next to t
 Open the report by clicking the date and time link under the Date column. Click the Results tab. The vulnerabilities found are listed in order of severity.
 Click the Results tab. The vulnerabilities found are listed in order of severity.
 Step 3: Interpret the scan results.
+Click the The rexec service is running vulnerability listed in the Results tab. GVM provides a summary of the finding and additional details. The Insight section explains a little about the vulnerability and the Solution section gives mitigation suggestions.
